@@ -24,13 +24,13 @@ module ActiveJob
     end
 
     def apply_lock
-      suffix = if lock.is_a?(Proc)
+      key = if lock.is_a?(Proc)
         deserialize_arguments_if_needed
         lock.call(*arguments)
       else
         lock
       end
-      "#{self.class.name}-#{suffix}"
+      "#{key}"
     end
   end
   Base.include(WorkersLock)

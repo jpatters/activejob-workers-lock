@@ -38,6 +38,19 @@ module ActiveJob
 
           job.apply_lock
         end
+
+        def self.reenqueue(job_data)
+          job = Base.deserialize(job_data)
+          if defined? Resque::Scheduler
+            # schedule a job in requeue_perform_delay seconds
+            timestamp = Time.now + requeue_perform_delay
+            Resque.enqueue_at_with_queue job.queue_name, timestamp, self, job_data
+          else
+            sleep(requeue_perform_delay)
+            Resque.enqueue_to job.queue_name, self, job_data
+          end
+          raise Resque::Job::DontPerform
+        end
       end
     end
   end
