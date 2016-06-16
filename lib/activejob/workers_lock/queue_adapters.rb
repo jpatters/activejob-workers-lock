@@ -1,0 +1,1 @@
+require 'activejob/workers_lock/queue_adapters/resque_adapter'
