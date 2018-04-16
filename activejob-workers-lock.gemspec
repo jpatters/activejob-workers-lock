@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
   s.require_paths = ["lib"]
 
-  s.add_dependency 'activejob', '~> 4.2'
+  s.add_dependency 'activejob', '>= 4.2'
   s.add_dependency 'activesupport', '~> 4.2'
   s.add_dependency "resque-workers-lock", "~> 2.0"
 
